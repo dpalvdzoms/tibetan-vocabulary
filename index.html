@@ -11,285 +11,275 @@
             padding: 0;
             font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
         }
-        
+
         body {
-            background: #F5F5F0; /* 米白 */
+            background: #F5F5F0;
             color: #4A4A4A;
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        
+
         .container {
-            width: 90%;
+            width: 100%;
             max-width: 850px;
             background: #FFFFFF;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(234, 208, 209, 0.25);
+            box-shadow: 0 8px 25px rgba(234, 208, 209, 0.25);
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
-        
-        .container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(234, 208, 209, 0.35);
-        }
-        
+
         header {
-            background: #FAEAD3; /* 主色调 - 浅米黄 */
+            background: #FAEAD3;
             color: #4A4A4A;
-            padding: 25px;
+            padding: 20px;
             text-align: center;
-            border-bottom: 4px solid #EAD0D1; /* 强调色 - 浅粉 */
+            border-bottom: 4px solid #EAD0D1;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
-        
+
         h1 {
-            font-size: 2.2rem;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
             font-weight: 700;
-            color: #4A4A4A;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
         }
-        
+
         .subtitle {
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             opacity: 0.85;
             font-weight: 500;
-            color: #5A5A5A;
         }
-        
+
         .mode-switch {
             display: flex;
             justify-content: center;
-            padding: 18px;
+            padding: 12px;
             background: #F9F7F3;
             border-bottom: 1px solid #F0E8E0;
-            gap: 12px;
+            gap: 8px;
             flex-wrap: wrap;
         }
-        
+
         .mode-btn {
-            padding: 11px 22px;
+            padding: 8px 16px;
             border: none;
-            border-radius: 28px;
+            border-radius: 20px;
             background: #FFFFFF;
             color: #5A5A5A;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 3px 8px rgba(234, 208, 209, 0.2);
-            border: 2px solid transparent;
-            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(234, 208, 209, 0.2);
+            font-size: 0.85rem;
+            white-space: nowrap;
         }
-        
+
         .mode-btn.active {
-            background: #EAD0D1; /* 强调色 - 浅粉 */
+            background: #EAD0D1;
             color: #4A4A4A;
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(234, 208, 209, 0.4);
-            border-color: #E0C0C1;
+            box-shadow: 0 3px 10px rgba(234, 208, 209, 0.4);
         }
-        
+
         .mode-btn:hover:not(.active) {
             background: #F5EFE6;
-            transform: translateY(-3px);
-            border-color: #E8D8D0;
+            transform: translateY(-2px);
         }
-        
+
         .content {
-            padding: 32px;
-            min-height: 420px;
+            padding: 20px;
+            min-height: 400px;
             background: #FFFFFF;
         }
-        
+
         .section {
             display: none;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.4s ease;
         }
-        
+
         .section.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .input-area {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
         }
-        
+
         .input-area h2 {
             color: #5A5A5A;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 700;
-            font-size: 1.6rem;
-            border-bottom: 3px solid #EAD0D1; /* 强调色 */
-            padding-bottom: 8px;
+            font-size: 1.4rem;
+            border-bottom: 3px solid #EAD0D1;
+            padding-bottom: 6px;
             display: inline-block;
         }
-        
+
         .input-area textarea {
             width: 100%;
-            height: 160px;
-            padding: 16px;
-            border-radius: 12px;
+            height: 140px;
+            padding: 14px;
+            border-radius: 10px;
             border: 2px solid #E8E0D8;
-            font-size: 16px;
+            font-size: 15px;
             resize: vertical;
             transition: all 0.3s ease;
             background: #FDFCF8;
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            line-height: 1.6;
+            line-height: 1.5;
         }
-        
+
         .input-area textarea:focus {
-            border-color: #FAEAD3; /* 主色调 */
+            border-color: #FAEAD3;
             outline: none;
-            box-shadow: 0 0 0 4px rgba(250, 234, 211, 0.3);
+            box-shadow: 0 0 0 3px rgba(250, 234, 211, 0.3);
             background: #FFFFFF;
         }
-        
+
         .input-area .hint {
             background: #F9F6F0;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 0.92rem;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
             color: #5A5A5A;
-            border-left: 4px solid #EAD0D1; /* 强调色 */
-            line-height: 1.6;
+            border-left: 4px solid #EAD0D1;
+            line-height: 1.5;
         }
-        
+
         .input-area .hint strong {
             color: #C08080;
             font-weight: 700;
         }
-        
+
         .btn-group {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
-        
+
         .btn {
-            padding: 13px 26px;
+            padding: 11px 20px;
             border: none;
-            border-radius: 10px;
-            font-size: 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
             flex: 1;
-            min-width: 140px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            min-width: 120px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
-        
+
         .btn-primary {
-            background: #FAEAD3; /* 主色调 */
+            background: #FAEAD3;
             color: #4A4A4A;
         }
-        
+
         .btn-primary:hover {
             background: #F5E0C8;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(250, 234, 211, 0.5);
+            transform: translateY(-2px);
         }
-        
+
         .btn-secondary {
-            background: #EAD0D1; /* 强调色 */
+            background: #EAD0D1;
             color: #4A4A4A;
         }
-        
+
         .btn-secondary:hover {
             background: #E0C0C1;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(234, 208, 209, 0.4);
+            transform: translateY(-2px);
         }
-        
+
         .btn-success {
-            background: #E0E5DF; /* 成功色 */
+            background: #E0E5DF;
             color: #2D4A2D;
             width: 100%;
         }
-        
+
         .btn-success:hover {
             background: #D0D8CE;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(224, 229, 223, 0.4);
+            transform: translateY(-2px);
         }
-        
+
         .btn-danger {
-            background: #EAD0D1; /* 强调色/错误色 */
+            background: #EAD0D1;
             color: #4A4A4A;
         }
-        
+
         .btn-danger:hover {
             background: #E0C0C1;
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
-        
+
         .btn-info {
             background: #E8E0D8;
             color: #4A4A4A;
         }
-        
+
         .btn-info:hover {
             background: #D8D0C8;
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
-        
+
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none !important;
         }
-        
+
         .word-count {
             text-align: center;
             font-weight: 700;
             color: #5A5A5A;
-            margin-top: 8px;
-            font-size: 1.05rem;
-            padding: 8px;
+            margin-top: 5px;
+            font-size: 0.95rem;
+            padding: 6px;
             background: #F5EFE6;
-            border-radius: 8px;
+            border-radius: 6px;
         }
-        
+
         .start-area {
             display: none;
             text-align: center;
-            margin-top: 18px;
-            padding-top: 18px;
+            margin-top: 15px;
+            padding-top: 15px;
             border-top: 2px dashed #E8E0D8;
         }
-        
+
         .start-area.show {
             display: block;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.4s ease;
         }
-        
+
         .quiz-container {
             text-align: center;
+            padding-bottom: 10px;
         }
-        
+
         .question-box {
             background: linear-gradient(135deg, #F9F7F3 0%, #F5EFE6 100%);
-            border-radius: 16px;
-            padding: 28px;
-            margin-bottom: 28px;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 15px;
             border: 2px solid #E8E0D8;
-            min-height: 140px;
+            min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: #4A4A4A;
             letter-spacing: 1px;
@@ -297,58 +287,56 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .question-box::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, #FAEAD3, #EAD0D1);
         }
-        
+
         .question-box:hover {
             transform: scale(1.02);
             background: linear-gradient(135deg, #F5EFE6 0%, #EFE6DB 100%);
-            box-shadow: 0 8px 24px rgba(234, 208, 209, 0.2);
         }
-        
+
         .tibetan {
             font-family: "Microsoft Himalaya", "Jomolhari", "Tibetan Machine Uni", "Segoe UI Historic", sans-serif;
-            font-size: 2.2rem;
-            letter-spacing: 2px;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
             color: #4A4A4A;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
         }
-        
+
         .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 28px;
+            gap: 10px;
+            margin-bottom: 15px;
         }
-        
+
         .option-btn {
-            padding: 20px;
+            padding: 14px;
             background: #FFFFFF;
             border: 2px solid #E8E0D8;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.25s ease;
             text-align: center;
-            min-height: 80px;
+            min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #4A4A4A;
             font-weight: 600;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
         }
-        
+
         .option-btn::before {
             content: '';
             position: absolute;
@@ -359,304 +347,485 @@
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
             transition: left 0.5s ease;
         }
-        
+
         .option-btn:hover::before {
             left: 100%;
         }
-        
+
         .option-btn:hover {
             background: #F9F7F3;
-            transform: translateY(-4px);
-            border-color: #FAEAD3; /* 主色调 */
-            box-shadow: 0 8px 20px rgba(250, 234, 211, 0.3);
+            transform: translateY(-2px);
+            border-color: #FAEAD3;
         }
-        
+
         .option-btn.correct {
-            background: #E0E5DF; /* 成功色 */
+            background: #E0E5DF;
             border-color: #C8D0C5;
             color: #2D4A2D;
             transform: scale(1.05);
-            box-shadow: 0 6px 18px rgba(224, 229, 223, 0.4);
+            box-shadow: 0 4px 12px rgba(224, 229, 223, 0.4);
         }
-        
+
         .option-btn.wrong {
-            background: #EAD0D1; /* 错误色 */
+            background: #EAD0D1;
             border-color: #E0C0C1;
             color: #5A2D2D;
             transform: scale(0.95);
-            box-shadow: 0 6px 18px rgba(234, 208, 209, 0.4);
+            box-shadow: 0 4px 12px rgba(234, 208, 209, 0.4);
         }
-        
+
         .feedback {
-            padding: 18px;
-            border-radius: 12px;
-            margin: 22px 0;
+            padding: 14px;
+            border-radius: 10px;
+            margin: 12px 0;
             font-weight: 600;
             text-align: center;
-            min-height: 64px;
+            min-height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
             border: 2px solid transparent;
         }
-        
+
         .feedback.correct {
-            background: #E0E5DF; /* 成功色 */
+            background: #E0E5DF;
             color: #2D4A2D;
             border-color: #C8D0C5;
-            box-shadow: 0 4px 12px rgba(224, 229, 223, 0.3);
+            box-shadow: 0 3px 8px rgba(224, 229, 223, 0.3);
         }
-        
+
         .feedback.wrong {
-            background: #EAD0D1; /* 错误色 */
+            background: #EAD0D1;
             color: #5A2D2D;
             border-color: #E0C0C1;
-            box-shadow: 0 4px 12px rgba(234, 208, 209, 0.3);
+            box-shadow: 0 3px 8px rgba(234, 208, 209, 0.3);
         }
-        
+
         .feedback.neutral {
             background: #F0E8E0;
             color: #5A5A5A;
             border-color: #E0D8D0;
         }
-        
+
+        /* 统计信息放在底部 -移动端优化 */
+        .stats-container {
+            background: #F9F7F3;
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 15px;
+            border: 1px solid #F0E8E0;
+            order: 10; /* 确保在Flexbox中最后显示 */
+        }
+
         .stats {
             display: flex;
             justify-content: space-around;
-            padding: 18px;
-            background: #F9F7F3;
-            border-radius: 12px;
-            margin-top: 22px;
             font-weight: 700;
             color: #5A5A5A;
-            border: 1px solid #F0E8E0;
+            gap: 8px;
         }
-        
+
         .stats div {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
+            font-size: 0.85rem;
         }
-        
+
         .stats span {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: #5A5A5A;
         }
-        
+
         .controls {
             display: flex;
             justify-content: center;
-            gap: 16px;
-            margin-top: 24px;
+            gap: 10px;
+            margin-top: 12px;
             flex-wrap: wrap;
+            order: 11; /* 确保在Flexbox中最后显示 */
         }
-        
+
+        .controls .btn {
+            min-width: 100px;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+        }
+
         .footer {
             text-align: center;
-            padding: 18px;
+            padding: 14px;
             background: #F9F7F3;
             color: #5A5A5A;
-            font-size: 0.92rem;
+            font-size: 0.85rem;
             border-top: 1px solid #F0E8E0;
             font-weight: 500;
         }
-        
-        .footer a {
-            color: #5A5A5A;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        
+
         /* 结果页面样式 */
         .results-container {
             text-align: center;
-            padding: 20px;
+            padding: 15px;
         }
-        
+
         .results-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #5A5A5A;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: 700;
-            border-bottom: 3px solid #EAD0D1; /* 强调色 */
-            padding-bottom: 10px;
+            border-bottom: 3px solid #EAD0D1;
+            padding-bottom: 8px;
             display: inline-block;
         }
-        
+
         .results-table {
             width: 100%;
-            margin: 20px 0;
+            margin: 15px 0;
             border-collapse: collapse;
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            font-size: 0.85rem;
         }
-        
+
         .results-table th {
-            background: #FAEAD3; /* 主色调 */
+            background: #FAEAD3;
             color: #4A4A4A;
-            padding: 14px;
+            padding: 10px;
             font-weight: 600;
             text-align: center;
         }
-        
+
         .results-table td {
-            padding: 12px;
+            padding: 8px;
             border-bottom: 1px solid #F0E8E0;
             text-align: center;
         }
-        
-        .results-table tr:last-child td {
-            border-bottom: none;
-        }
-        
+
         .results-table tr:hover {
             background: #F9F7F3;
         }
-        
+
         .tibetan-cell {
             font-family: "Microsoft Himalaya", "Jomolhari", "Tibetan Machine Uni", sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: #4A4A4A;
             font-weight: bold;
         }
-        
+
         .rate-high {
             color: #8A9B8A;
             font-weight: bold;
         }
-        
+
         .rate-medium {
             color: #C08080;
             font-weight: bold;
         }
-        
+
         .rate-low {
             color: #A07070;
             font-weight: bold;
         }
-        
+
         .summary-stats {
             display: flex;
             justify-content: space-around;
-            margin: 25px 0;
-            padding: 20px;
+            margin: 18px 0;
+            padding: 15px;
             background: #F9F7F3;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: 700;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        
+
         .summary-stats div {
             text-align: center;
+            flex: 1;
+            min-width: 80px;
         }
-        
+
         .summary-stats .value {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #5A5A5A;
-            margin-top: 5px;
+            margin-top: 3px;
         }
-        
+
         .round-actions {
             display: flex;
             justify-content: center;
-            gap: 16px;
-            margin-top: 25px;
+            gap: 10px;
+            margin-top: 18px;
             flex-wrap: wrap;
         }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .mode-switch {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .mode-btn {
-                width: 100%;
-            }
-            
-            .controls {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-            }
-            
-            .question-box {
-                font-size: 1.6rem;
-                padding: 20px;
-                min-height: 120px;
-            }
-            
-            .tibetan {
-                font-size: 1.8rem;
-            }
-            
-            .content {
-                padding: 24px;
-            }
-            
-            header {
-                padding: 22px;
-            }
-            
-            h1 {
-                font-size: 1.9rem;
-            }
-            
-            .results-table {
-                font-size: 0.9rem;
-            }
-            
-            .results-table th,
-            .results-table td {
-                padding: 8px;
-            }
-            
-            .tibetan-cell {
-                font-size: 1.1rem;
-            }
+
+        .round-actions .btn {
+            min-width: 120px;
+            padding: 10px 16px;
         }
-        
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
+
+        /*移动端优化 -确保所有内容在屏幕内 */
+        @media (max-width: 768px) {
+            .content {
+                padding: 15px;
+ min-height: auto;
             }
-            
-            .container {
-                width: 100%;
-                border-radius: 14px;
-            }
-            
+
             .question-box {
                 font-size: 1.4rem;
+                padding: 16px;
+                min-height: 80px;
+                margin-bottom: 10px;
             }
-            
+
             .tibetan {
+                font-size: 1.6rem;
+            }
+
+            .options-grid {
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+
+            .option-btn {
+                padding: 12px;
+                font-size: 0.9rem;
+                min-height: 55px;
+            }
+
+            .feedback {
+                padding: 10px;
+                margin: 8px 0;
+                min-height: 40px;
+                font-size: 0.9rem;
+            }
+
+            .stats-container {
+                padding: 10px;
+                margin-top: 10px;
+            }
+
+            .stats {
+                gap: 5px;
+            }
+
+            .stats div {
+                font-size: 0.8rem;
+            }
+
+            .stats span {
+                font-size: 1rem;
+            }
+
+            .controls {
+                margin-top: 8px;
+                gap: 8px;
+            }
+
+            .controls .btn {
+                min-width: 90px;
+                padding: 9px 12px;
+                font-size: 0.85rem;
+            }
+
+            header {
+                padding: 15px;
+                position: sticky;
+                top: 0;
+            }
+
+            h1 {
                 font-size: 1.5rem;
             }
-            
-            .stats {
-                flex-direction: column;
-                gap: 10px;
+
+            .subtitle {
+                font-size: 0.85rem;
             }
-            
+
+            .mode-switch {
+                padding: 8px;
+                gap: 6px;
+            }
+
+            .mode-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            .input-area textarea {
+                height: 120px;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+
+            .results-table {
+                font-size: 0.8rem;
+            }
+
+            .results-table th,
+            .results-table td {
+                padding: 6px;
+            }
+
+            .tibetan-cell {
+                font-size: 1rem;
+            }
+
             .summary-stats {
+                padding: 12px;
+                gap: 8px;
+            }
+
+            .summary-stats .value {
+                font-size: 1.3rem;
+            }
+
+            .round-actions {
+                gap: 8px;
+            }
+
+            .round-actions .btn {
+                min-width: 100px;
+                padding: 9px 12px;
+            }
+            /*确保底部按钮在屏幕内可见 */
+            .quiz-container {
+                display: flex;
                 flex-direction: column;
-                gap: 15px;
+                min-height: 400px;
+            }
+
+            .quiz-container > * {
+                order: 0;
+            }
+
+            .question-box {
+                order: 1;
+            }
+
+            .options-grid {
+                order: 2;
+            }
+
+            .feedback {
+                order: 3;
+            }
+
+            .stats-container {
+                order: 4;
+            }
+
+            .controls {
+                order: 5;
+                position: sticky;
+                bottom: 0;
+                background: #FFFFFF;
+                padding: 10px;
+                margin: 0 -15px;
+                border-top: 2px solid #F0E8E0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                border-radius: 12px;
+            }
+
+            .question-box {
+                font-size: 1.2rem;
+                padding: 14px;
+            }
+
+            .tibetan {
+                font-size: 1.4rem;
+            }
+
+            .option-btn {
+                font-size: 0.85rem;
+                padding: 10px;
+                min-height: 50px;
+            }
+
+            .feedback {
+                font-size: 0.85rem;
+                padding: 8px;
+            }
+
+            .stats div {
+                font-size: 0.75rem;
+            }
+
+            .stats span {
+                font-size: 0.95rem;
+            }
+
+            .controls .btn {
+                font-size: 0.8rem;
+                min-width: 80px;
+                padding: 8px 10px;
+            }
+
+            .btn {
+                padding: 9px 14px;
+                font-size: 0.85rem;
+            }
+
+            .results-title {
+                font-size: 1.3rem;
+            }
+
+            .summary-stats .value {
+                font-size: 1.2rem;
+            }
+        }
+        /* 特别针对小屏幕的优化 */
+        @media (max-height: 700px) and (max-width: 768px) {
+            .content {
+                padding: 12px;
+            }
+
+            .question-box {
+                padding: 12px;
+                min-height: 70px;
+ }
+
+            .options-grid {
+                gap: 6px;
+            }
+
+            .option-btn {
+                min-height: 48px;
+                padding: 10px;
+            }
+
+            .feedback {
+                padding: 8px;
+                margin: 6px 0;
+            }
+
+            .stats-container {
+                padding: 8px;
+                margin-top: 8px;
+            }
+
+            .controls {
+                padding: 8px;
+                margin-top: 6px;
             }
         }
     </style>
@@ -667,13 +836,13 @@
             <h1>藏文单词学习工具</h1>
             <div class="subtitle">藏文 ↔ 汉译 双向学习</div>
         </header>
-        
+
         <div class="mode-switch">
             <button class="mode-btn active" data-mode="input">📝 输入单词</button>
             <button class="mode-btn" data-mode="tibetan"> Tibetan → 汉译</button>
             <button class="mode-btn" data-mode="han"> 汉译 → Tibetan</button>
         </div>
-        
+
         <div class="content">
             <!-- 输入区域 -->
             <div id="input-section" class="section active">
@@ -681,8 +850,7 @@
                     <h2>📚 添加单词</h2>
                     <div class="hint">
                         请输入藏文单词和对应的汉译，每行一个单词。<br>
-                        格式：<strong>藏文词,汉译</strong> （中文或英文逗号）<br>
-                        例如：<span class="tibetan" style="font-size: 1.2rem;">བཀྲ་ཤིས་</span>,吉祥
+                        格式：<strong>藏文词,汉译</strong> （中文或英文逗号）
                     </div>
                     <textarea id="word-input" placeholder="例如：&#10;བཀྲ་ཤིས་,吉祥&#10;སེམས་ཅན་,众生&#10;ཤེས་རབ་,智慧&#10;སྙིང་རྗེ་,慈悲"></textarea>
                     <div class="btn-group">
@@ -695,48 +863,52 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 学习区域 -->
             <div id="quiz-section" class="section">
                 <div class="quiz-container">
                     <div class="question-box" id="question">
                         准备开始...
                     </div>
-                    
+
                     <div class="options-grid" id="options">
                         <!-- 选项按钮将在这里动态生成 -->
                     </div>
-                    
+
                     <div id="feedback" class="feedback neutral">
                         请选择正确答案
                     </div>
-                    
-                    <div class="stats">
-                        <div>进度 <span id="progress">0</span>/<span id="total">0</span></div>
-                        <div>正确 <span id="correct-count">0</span></div>
-                        <div>错误 <span id="wrong-count">0</span></div>
+
+                    <!-- 统计信息放在底部 -->
+                    <div class="stats-container">
+                        <div class="stats">
+                            <div>进度 <span id="progress">0</span>/<span id="total">0</span></div>
+                            <div>正确 <span id="correct-count">0</span></div>
+                            <div>错误 <span id="wrong-count">0</span></div>
+                        </div>
                     </div>
-                    
+
+                    <!--按钮也放在底部 -->
                     <div class="controls">
                         <button id="next-btn" class="btn btn-primary" disabled>➡️ 下一题</button>
                         <button id="reset-btn" class="btn btn-danger">🔄 重置</button>
                     </div>
                 </div>
             </div>
-            
+
             <!-- 结果区域 -->
             <div id="results-section" class="section">
                 <div class="results-container">
                     <div class="results-title">🎯 本轮学习结果</div>
-                    
+
                     <div id="results-content">
                         <!-- 结果表格将在这里动态生成 -->
                     </div>
-                    
+
                     <div class="summary-stats" id="summary-stats">
                         <!-- 汇总统计将在这里动态生成 -->
                     </div>
-                    
+
                     <div class="round-actions">
                         <button id="next-round-btn" class="btn btn-success">🚀 开始下一轮</button>
                         <button id="back-to-input-btn" class="btn btn-info">📝 返回输入</button>
@@ -744,7 +916,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer">
             版权所有 © 2026 | དཔལ་འཛོམས། & MiMo
         </div>
@@ -811,7 +983,7 @@
                         resetQuiz();
                         generateQuestion();
                     }
-                    
+
                     elements.modeButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                 });
@@ -824,21 +996,21 @@
                     showFeedback('请输入单词数据', 'wrong');
                     return;
                 }
-                
+
                 const lines = input.split('\n');
                 let addedCount = 0;
-                
+
                 lines.forEach(line => {
                     const parts = line.split(/[,，]/);
                     if (parts.length === 2) {
                         const tibetan = parts[0].trim();
                         const han = parts[1].trim();
-                        
+
                         if (tibetan && han) {
-                            const exists = state.words.some(w => 
+                            const exists = state.words.some(w =>
                                 w.tibetan === tibetan && w.han === han
                             );
-                            
+
                             if (!exists) {
                                 state.words.push({
                                     tibetan: tibetan,
@@ -852,12 +1024,12 @@
                         }
                     }
                 });
-                
+
                 if (addedCount > 0) {
                     showFeedback(`✅ 成功添加 ${addedCount} 个单词`, 'correct');
                     elements.wordInput.value = '';
                     updateWordCount();
-                    
+
                     if (state.words.length >= 4) {
                         elements.startArea.classList.add('show');
                     }
@@ -871,14 +1043,14 @@
                 const sampleData = [
                     "བཀྲ་ཤིས་,吉祥",
                     "སེམས་ཅན་,众生",
-                    "ཤེས་རབ་,智慧",
-                    "སྙིང་རྗེ་,慈悲",
-                    "འོད་གསལ་,光明",
+                   "ཤེས་རབ་,智慧",
+                   "སྙིང་རྗེ་,慈悲",
+"འོད་གསལ་,光明",
                     "རང་གྲོལ་,自在",
                     "ཐེག་པ་,乘",
-                    "སྨོན་ལམ་,愿"
+                   "སྨོན་ལམ་,愿"
                 ].join('\n');
-                
+
                 elements.wordInput.value = sampleData;
                 showFeedback('📄 已加载示例数据，请点击"添加单词"', 'neutral');
             });
@@ -889,7 +1061,7 @@
                     showFeedback('请至少添加4个单词后再开始', 'wrong');
                     return;
                 }
-                
+
                 state.currentRound = 1;
                 state.roundCompleted = false;
                 const tibetanBtn = document.querySelector('[data-mode="tibetan"]');
@@ -917,7 +1089,7 @@
                 showSection('quiz');
                 resetQuiz();
                 generateQuestion();
-                
+
                 // 切换回对应模式按钮
                 elements.modeButtons.forEach(b => b.classList.remove('active'));
                 if (state.mode === 'tibetan') {
@@ -938,7 +1110,7 @@
             function showFeedback(message, type) {
                 elements.feedback.textContent = message;
                 elements.feedback.className = 'feedback';
-                
+
                 if (type === 'correct') {
                     elements.feedback.classList.add('correct');
                 } else if (type === 'wrong') {
@@ -946,7 +1118,7 @@
                 } else {
                     elements.feedback.classList.add('neutral');
                 }
-                
+
                 // 3秒后自动清除反馈
                 setTimeout(() => {
                     if (elements.feedback.textContent === message) {
@@ -975,43 +1147,43 @@
                     showFeedback('请至少添加4个单词', 'wrong');
                     return;
                 }
-                
+
                 // 检查是否完成一轮（所有单词至少被测试过一次）
                 const allTested = state.words.every(w => w.attempts > 0);
                 if (allTested && state.stats.total >= state.words.length) {
                     showResults();
                     return;
                 }
-                
+
                 elements.nextBtn.disabled = true;
                 elements.feedback.textContent = '请选择正确答案';
                 elements.feedback.className = 'feedback neutral';
                 elements.options.innerHTML = '';
-                
+
                 // 随机选择一个正确答案（优先选择尝试次数少的）
                 let correctIndex;
                 const minAttempts = Math.min(...state.words.map(w => w.attempts));
                 const candidates = state.words.filter(w => w.attempts === minAttempts);
-                
+
                 if (candidates.length > 0) {
                     const randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
                     correctIndex = state.words.indexOf(randomCandidate);
                 } else {
                     correctIndex = Math.floor(Math.random() * state.words.length);
                 }
-                
+
                 const correctWord = state.words[correctIndex];
-                
+
                 // 收集错误答案
                 const wrongWords = [];
                 const availableWords = state.words.filter((_, i) => i !== correctIndex);
-                
+
                 for (let i = 0; i < 3; i++) {
                     if (availableWords.length === 0) break;
                     const randomIndex = Math.floor(Math.random() * availableWords.length);
                     wrongWords.push(availableWords.splice(randomIndex, 1)[0]);
                 }
-                
+
                 // 创建选项数组并随机排序
                 const options = [
                     { text: state.mode === 'tibetan' ? correctWord.han : correctWord.tibetan, correct: true },
@@ -1020,23 +1192,23 @@
                         correct: false
                     }))
                 ];
-                
+
                 for (let i = options.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [options[i], options[j]] = [options[j], options[i]];
                 }
-                
+
                 state.currentQuestion = {
                     question: state.mode === 'tibetan' ? correctWord.tibetan : correctWord.han,
                     correctAnswer: state.mode === 'tibetan' ? correctWord.han : correctWord.tibetan,
                     options: options,
                     wordIndex: correctIndex
                 };
-                
-                elements.question.innerHTML = state.mode === 'tibetan' 
-                    ? `<span class="tibetan">${correctWord.tibetan}</span>` 
+
+                elements.question.innerHTML = state.mode === 'tibetan'
+                    ? `<span class="tibetan">${correctWord.tibetan}</span>`
                     : correctWord.han;
-                
+
                 options.forEach((option, index) => {
                     const btn = document.createElement('button');
                     btn.className = 'option-btn';
@@ -1045,7 +1217,7 @@
                     btn.addEventListener('click', handleOptionClick);
                     elements.options.appendChild(btn);
                 });
-                
+
                 elements.progress.textContent = state.stats.total;
                 elements.total.textContent = state.words.length;
             }
@@ -1055,7 +1227,7 @@
                 const btn = e.target;
                 const isCorrect = btn.dataset.correct === 'true';
                 const wordIndex = state.currentQuestion.wordIndex;
-                
+
                 // 更新单词统计
                 state.words[wordIndex].attempts++;
                 if (isCorrect) {
@@ -1063,7 +1235,7 @@
                 } else {
                     state.words[wordIndex].wrong++;
                 }
-                
+
                 // 禁用所有选项按钮
                 const allButtons = elements.options.querySelectorAll('.option-btn');
                 allButtons.forEach(button => {
@@ -1072,14 +1244,14 @@
                         button.classList.add('correct');
                     }
                 });
-                
+
                 // 处理答案
                 if (isCorrect) {
                     btn.classList.add('correct');
                     showFeedback(`🎉 回答正确！`, 'correct');
                     state.stats.correct++;
                     elements.correctCount.textContent = state.stats.correct;
-                    
+
                     // 正确答案：2秒后自动跳转
                     elements.nextBtn.disabled = false;
                     setTimeout(() => {
@@ -1087,21 +1259,20 @@
                             generateQuestion();
                         }
                     }, 2000);
-                    
+
                 } else {
                     btn.classList.add('wrong');
                     showFeedback(`❌ 回答错误！正确答案: ${state.currentQuestion.correctAnswer}`, 'wrong');
                     state.stats.wrong++;
                     elements.wrongCount.textContent = state.stats.wrong;
-                    
+
                     // 错误答案：不自动跳转，需要手动点击下一题
                     elements.nextBtn.disabled = false;
-                    // 不设置自动跳转，等待用户手动点击
                 }
-                
+
                 state.stats.total++;
                 elements.progress.textContent = state.stats.total;
-                
+
                 // 检查是否完成一轮
                 const allTested = state.words.every(w => w.attempts > 0);
                 if (allTested && state.stats.total >= state.words.length) {
@@ -1114,7 +1285,7 @@
             // 显示结果
             function showResults() {
                 state.roundCompleted = true;
-                
+
                 // 生成结果表格
                 let tableHTML = `
                     <table class="results-table">
@@ -1122,21 +1293,21 @@
                             <tr>
                                 <th>藏文</th>
                                 <th>汉译</th>
-                                <th>正确次数</th>
-                                <th>错误次数</th>
+                                <th>正确</th>
+                                <th>错误</th>
                                 <th>正确率</th>
                             </tr>
                         </thead>
                         <tbody>
                 `;
-                
+
                 state.words.forEach(word => {
                     const totalAttempts = word.correct + word.wrong;
                     const rate = totalAttempts > 0 ? Math.round((word.correct / totalAttempts) * 100) : 0;
                     let rateClass = 'rate-low';
                     if (rate >= 80) rateClass = 'rate-high';
                     else if (rate >= 50) rateClass = 'rate-medium';
-                    
+
                     tableHTML += `
                         <tr>
                             <td class="tibetan-cell">${word.tibetan}</td>
@@ -1147,35 +1318,35 @@
                         </tr>
                     `;
                 });
-                
+
                 tableHTML += '</tbody></table>';
                 elements.resultsContent.innerHTML = tableHTML;
-                
+
                 // 汇总统计
                 const totalCorrect = state.words.reduce((sum, w) => sum + w.correct, 0);
                 const totalWrong = state.words.reduce((sum, w) => sum + w.wrong, 0);
                 const totalAttempts = totalCorrect + totalWrong;
                 const overallRate = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
-                
+
                 elements.summaryStats.innerHTML = `
                     <div>
-                        <div>本轮总正确</div>
+                        <div>本轮正确</div>
                         <div class="value">${totalCorrect}</div>
                     </div>
                     <div>
-                        <div>本轮总错误</div>
+                        <div>本轮错误</div>
                         <div class="value">${totalWrong}</div>
                     </div>
                     <div>
-                        <div>本轮正确率</div>
+                        <div>正确率</div>
                         <div class="value">${overallRate}%</div>
                     </div>
                     <div>
-                        <div>当前轮次</div>
-                        <div class="value">第${state.currentRound}轮</div>
+                        <div>第${state.currentRound}轮</div>
+                        <div class="value">完成</div>
                     </div>
                 `;
-                
+
                 showSection('results');
             }
 
@@ -1204,10 +1375,10 @@
                 elements.startArea.classList.remove('show');
                 updateWordCount();
                 showSection('input');
-                
+
                 elements.modeButtons.forEach(b => b.classList.remove('active'));
                 document.querySelector('[data-mode="input"]').classList.add('active');
-                
+
                 showFeedback('✅ 已重置所有数据', 'correct');
             }
 
