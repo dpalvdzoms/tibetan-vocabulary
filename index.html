@@ -5,828 +5,146 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>藏文单词学习工具</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
-        }
-
-        body {
-            background: #F5F5F0;
-            color: #4A4A4A;
-            min-height: 100vh;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 850px;
-            background: #FFFFFF;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(234, 208, 209, 0.25);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        header {
-            background: #FAEAD3;
-            color: #4A4A4A;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 4px solid #EAD0D1;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
-        .subtitle {
-            font-size: 0.95rem;
-            opacity: 0.85;
-            font-weight: 500;
-        }
-
-        .mode-switch {
-            display: flex;
-            justify-content: center;
-            padding: 12px;
-            background: #F9F7F3;
-            border-bottom: 1px solid #F0E8E0;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .mode-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 20px;
-            background: #FFFFFF;
-            color: #5A5A5A;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 6px rgba(234, 208, 209, 0.2);
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
-        .mode-btn.active {
-            background: #EAD0D1;
-            color: #4A4A4A;
-            transform: scale(1.05);
-            box-shadow: 0 3px 10px rgba(234, 208, 209, 0.4);
-        }
-
-        .mode-btn:hover:not(.active) {
-            background: #F5EFE6;
-            transform: translateY(-2px);
-        }
-
-        .content {
-            padding: 20px;
-            min-height: 400px;
-            background: #FFFFFF;
-        }
-
-        .section {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .input-area {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .input-area h2 {
-            color: #5A5A5A;
-            margin-bottom: 5px;
-            font-weight: 700;
-            font-size: 1.4rem;
-            border-bottom: 3px solid #EAD0D1;
-            padding-bottom: 6px;
-            display: inline-block;
-        }
-
-        .input-area textarea {
-            width: 100%;
-            height: 140px;
-            padding: 14px;
-            border-radius: 10px;
-            border: 2px solid #E8E0D8;
-            font-size: 15px;
-            resize: vertical;
-            transition: all 0.3s ease;
-            background: #FDFCF8;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            line-height: 1.5;
-        }
-
-        .input-area textarea:focus {
-            border-color: #FAEAD3;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(250, 234, 211, 0.3);
-            background: #FFFFFF;
-        }
-
-        .input-area .hint {
-            background: #F9F6F0;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: #5A5A5A;
-            border-left: 4px solid #EAD0D1;
-            line-height: 1.5;
-        }
-
-        .input-area .hint strong {
-            color: #C08080;
-            font-weight: 700;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 11px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            flex: 1;
-            min-width: 120px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-        }
-
-        .btn-primary {
-            background: #FAEAD3;
-            color: #4A4A4A;
-        }
-
-        .btn-primary:hover {
-            background: #F5E0C8;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: #EAD0D1;
-            color: #4A4A4A;
-        }
-
-        .btn-secondary:hover {
-            background: #E0C0C1;
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background: #E0E5DF;
-            color: #2D4A2D;
-            width: 100%;
-        }
-
-        .btn-success:hover {
-            background: #D0D8CE;
-            transform: translateY(-2px);
-        }
-
-        .btn-danger {
-            background: #EAD0D1;
-            color: #4A4A4A;
-        }
-
-        .btn-danger:hover {
-            background: #E0C0C1;
-            transform: translateY(-2px);
-        }
-
-        .btn-info {
-            background: #E8E0D8;
-            color: #4A4A4A;
-        }
-
-        .btn-info:hover {
-            background: #D8D0C8;
-            transform: translateY(-2px);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .word-count {
-            text-align: center;
-            font-weight: 700;
-            color: #5A5A5A;
-            margin-top: 5px;
-            font-size: 0.95rem;
-            padding: 6px;
-            background: #F5EFE6;
-            border-radius: 6px;
-        }
-
-        .start-area {
-            display: none;
-            text-align: center;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px dashed #E8E0D8;
-        }
-
-        .start-area.show {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .quiz-container {
-            text-align: center;
-            padding-bottom: 10px;
-        }
-
-        .question-box {
-            background: linear-gradient(135deg, #F9F7F3 0%, #F5EFE6 100%);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 15px;
-            border: 2px solid #E8E0D8;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #4A4A4A;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .question-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #FAEAD3, #EAD0D1);
-        }
-
-        .question-box:hover {
-            transform: scale(1.02);
-            background: linear-gradient(135deg, #F5EFE6 0%, #EFE6DB 100%);
-        }
-
-        .tibetan {
-            font-family: "Microsoft Himalaya", "Jomolhari", "Tibetan Machine Uni", "Segoe UI Historic", sans-serif;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-            color: #4A4A4A;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .option-btn {
-            padding: 14px;
-            background: #FFFFFF;
-            border: 2px solid #E8E0D8;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            text-align: center;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4A4A4A;
-            font-weight: 600;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .option-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .option-btn:hover::before {
-            left: 100%;
-        }
-
-        .option-btn:hover {
-            background: #F9F7F3;
-            transform: translateY(-2px);
-            border-color: #FAEAD3;
-        }
-
-        .option-btn.correct {
-            background: #E0E5DF;
-            border-color: #C8D0C5;
-            color: #2D4A2D;
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(224, 229, 223, 0.4);
-        }
-
-        .option-btn.wrong {
-            background: #EAD0D1;
-            border-color: #E0C0C1;
-            color: #5A2D2D;
-            transform: scale(0.95);
-            box-shadow: 0 4px 12px rgba(234, 208, 209, 0.4);
-        }
-
-        .feedback {
-            padding: 14px;
-            border-radius: 10px;
-            margin: 12px 0;
-            font-weight: 600;
-            text-align: center;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .feedback.correct {
-            background: #E0E5DF;
-            color: #2D4A2D;
-            border-color: #C8D0C5;
-            box-shadow: 0 3px 8px rgba(224, 229, 223, 0.3);
-        }
-
-        .feedback.wrong {
-            background: #EAD0D1;
-            color: #5A2D2D;
-            border-color: #E0C0C1;
-            box-shadow: 0 3px 8px rgba(234, 208, 209, 0.3);
-        }
-
-        .feedback.neutral {
-            background: #F0E8E0;
-            color: #5A5A5A;
-            border-color: #E0D8D0;
-        }
-
-        /* 统计信息放在底部 -移动端优化 */
-        .stats-container {
-            background: #F9F7F3;
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 15px;
-            border: 1px solid #F0E8E0;
-            order: 10; /* 确保在Flexbox中最后显示 */
-        }
-
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            font-weight: 700;
-            color: #5A5A5A;
-            gap: 8px;
-        }
-
-        .stats div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            font-size: 0.85rem;
-        }
-
-        .stats span {
-            font-size: 1.1rem;
-            color: #5A5A5A;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-            order: 11; /* 确保在Flexbox中最后显示 */
-        }
-
-        .controls .btn {
-            min-width: 100px;
-            padding: 10px 16px;
-            font-size: 0.9rem;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 14px;
-            background: #F9F7F3;
-            color: #5A5A5A;
-            font-size: 0.85rem;
-            border-top: 1px solid #F0E8E0;
-            font-weight: 500;
-        }
-
-        /* 结果页面样式 */
-        .results-container {
-            text-align: center;
-            padding: 15px;
-        }
-
-        .results-title {
-            font-size: 1.5rem;
-            color: #5A5A5A;
-            margin-bottom: 15px;
-            font-weight: 700;
-            border-bottom: 3px solid #EAD0D1;
-            padding-bottom: 8px;
-            display: inline-block;
-        }
-
-        .results-table {
-            width: 100%;
-            margin: 15px 0;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-            font-size: 0.85rem;
-        }
-
-        .results-table th {
-            background: #FAEAD3;
-            color: #4A4A4A;
-            padding: 10px;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .results-table td {
-            padding: 8px;
-            border-bottom: 1px solid #F0E8E0;
-            text-align: center;
-        }
-
-        .results-table tr:hover {
-            background: #F9F7F3;
-        }
-
-        .tibetan-cell {
-            font-family: "Microsoft Himalaya", "Jomolhari", "Tibetan Machine Uni", sans-serif;
-            font-size: 1.1rem;
-            color: #4A4A4A;
-            font-weight: bold;
-        }
-
-        .rate-high {
-            color: #8A9B8A;
-            font-weight: bold;
-        }
-
-        .rate-medium {
-            color: #C08080;
-            font-weight: bold;
-        }
-
-        .rate-low {
-            color: #A07070;
-            font-weight: bold;
-        }
-
-        .summary-stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 18px 0;
-            padding: 15px;
-            background: #F9F7F3;
-            border-radius: 10px;
-            font-weight: 700;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .summary-stats div {
-            text-align: center;
-            flex: 1;
-            min-width: 80px;
-        }
-
-        .summary-stats .value {
-            font-size: 1.5rem;
-            color: #5A5A5A;
-            margin-top: 3px;
-        }
-
-        .round-actions {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 18px;
-            flex-wrap: wrap;
-        }
-
-        .round-actions .btn {
-            min-width: 120px;
-            padding: 10px 16px;
-        }
-
-        /*移动端优化 -确保所有内容在屏幕内 */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif; }
+        body { background: #F5F5F0; color: #4A4A4A; min-height: 100vh; padding: 10px; display: flex; justify-content: center; align-items: flex-start; }
+        .container { width: 100%; max-width: 850px; background: #FFFFFF; border-radius: 16px; box-shadow: 0 8px 25px rgba(234,208,209,0.25); overflow: hidden; margin-top: 10px; }
+        header { background: #FAEAD3; color: #4A4A4A; padding: 20px; text-align: center; border-bottom: 4px solid #EAD0D1; }
+        h1 { font-size: 1.8rem; margin-bottom: 5px; font-weight: 700; }
+        .subtitle { font-size: 0.95rem; opacity: 0.85; font-weight: 500; }
+        .nav-tabs { display: flex; justify-content: center; padding: 12px; background: #F9F7F3; border-bottom: 1px solid #F0E8E0; gap: 8px; flex-wrap: wrap; }
+        .nav-btn { padding: 8px 16px; border: none; border-radius: 20px; background: #FFFFFF; color: #5A5A5A; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(234,208,209,0.2); font-size: 0.85rem; white-space: nowrap; }
+        .nav-btn.active { background: #EAD0D1; color: #4A4A4A; transform: scale(1.05); box-shadow: 0 3px 10px rgba(234,208,209,0.4); }
+        .nav-btn:hover:not(.active) { background: #F5EFE6; transform: translateY(-2px); }
+        .content { padding: 20px; min-height: 400px; background: #FFFFFF; }
+        .page { display: none; animation: fadeIn 0.4s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Notebook styles */
+        .notebook-list { display: flex; flex-direction: column; gap: 10px; }
+        .notebook-card { background: #F9F7F3; border: 2px solid #E8E0D8; border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; }
+        .notebook-card:hover { border-color: #FAEAD3; transform: translateY(-1px); }
+        .notebook-info h3 { font-size: 1rem; color: #4A4A4A; margin-bottom: 4px; }
+        .notebook-info span { font-size: 0.8rem; color: #888; }
+        .notebook-actions { display: flex; gap: 6px; }
+        .icon-btn { width: 34px; height: 34px; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .icon-btn:hover { transform: scale(1.1); }
+        .icon-btn.edit { background: #FAEAD3; }
+        .icon-btn.delete { background: #EAD0D1; }
+        .icon-btn.export { background: #E0E5DF; }
+        .create-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+        .create-bar input { flex: 1; padding: 10px 14px; border: 2px solid #E8E0D8; border-radius: 10px; font-size: 0.95rem; background: #FDFCF8; transition: all 0.3s; }
+        .create-bar input:focus { border-color: #FAEAD3; outline: none; box-shadow: 0 0 0 3px rgba(250,234,211,0.3); }
+        .btn { padding: 10px 18px; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+        .btn-primary { background: #FAEAD3; color: #4A4A4A; }
+        .btn-primary:hover { background: #F5E0C8; }
+        .btn-secondary { background: #EAD0D1; color: #4A4A4A; }
+        .btn-secondary:hover { background: #E0C0C1; }
+        .btn-success { background: #E0E5DF; color: #2D4A2D; }
+        .btn-success:hover { background: #D0D8CE; }
+        .btn-danger { background: #EAD0D1; color: #4A4A4A; }
+        .btn-info { background: #E8E0D8; color: #4A4A4A; }
+
+        /* Add words page */
+        .input-area { display: flex; flex-direction: column; gap: 12px; }
+        .input-area h2 { color: #5A5A5A; font-weight: 700; font-size: 1.3rem; border-bottom: 3px solid #EAD0D1; padding-bottom: 6px; display: inline-block; }
+        .input-area textarea { width: 100%; height: 140px; padding: 14px; border-radius: 10px; border: 2px solid #E8E0D8; font-size: 15px; resize: vertical; transition: all 0.3s; background: #FDFCF8; line-height: 1.5; }
+        .input-area textarea:focus { border-color: #FAEAD3; outline: none; box-shadow: 0 0 0 3px rgba(250,234,211,0.3); background: #FFF; }
+        .hint { background: #F9F6F0; padding: 12px; border-radius: 8px; font-size: 0.85rem; color: #5A5A5A; border-left: 4px solid #EAD0D1; line-height: 1.5; }
+        .hint strong { color: #C08080; }
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-group .btn { flex: 1; min-width: 100px; text-align: center; }
+        .word-count-bar { text-align: center; font-weight: 700; color: #5A5A5A; font-size: 0.9rem; padding: 8px; background: #F5EFE6; border-radius: 6px; }
+        .current-nb-label { background: #FAEAD3; padding: 8px 14px; border-radius: 8px; font-weight: 600; text-align: center; font-size: 0.95rem; }
+        .word-list-preview { margin-top: 12px; }
+        .word-list-preview table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .word-list-preview th { background: #FAEAD3; padding: 8px; text-align: center; font-weight: 600; }
+        .word-list-preview td { padding: 6px 8px; border-bottom: 1px solid #F0E8E0; text-align: center; }
+        .word-list-preview .tibetan-cell { font-family: "Microsoft Himalaya","Jomolhari","Tibetan Machine Uni","Segoe UI Historic",sans-serif; font-size: 1.05rem; font-weight: bold; }
+        .word-delete-btn { background: none; border: none; cursor: pointer; font-size: 1rem; opacity: 0.5; transition: opacity 0.2s; }
+        .word-delete-btn:hover { opacity: 1; }
+
+        /* Study select page */
+        .study-select h2 { color: #5A5A5A; font-weight: 700; font-size: 1.3rem; border-bottom: 3px solid #EAD0D1; padding-bottom: 6px; display: inline-block; margin-bottom: 14px; }
+        .nb-checkbox-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        .nb-checkbox-item { display: flex; align-items: center; gap: 10px; background: #F9F7F3; padding: 12px; border-radius: 10px; border: 2px solid #E8E0D8; cursor: pointer; transition: all 0.2s; }
+        .nb-checkbox-item:hover { border-color: #FAEAD3; }
+        .nb-checkbox-item.checked { border-color: #EAD0D1; background: #FDF5F5; }
+        .nb-checkbox-item input[type=checkbox] { width: 18px; height: 18px; cursor: pointer; accent-color: #C08080; }
+        .nb-checkbox-item label { flex: 1; cursor: pointer; font-weight: 600; }
+        .nb-checkbox-item .nb-count { font-size: 0.8rem; color: #888; }
+        .mode-select { display: flex; gap: 10px; margin-bottom: 16px; justify-content: center; }
+        .mode-select .nav-btn { min-width: 120px; text-align: center; }
+
+        /* Quiz styles */
+        .quiz-container { text-align: center; }
+        .question-box { background: linear-gradient(135deg, #F9F7F3 0%, #F5EFE6 100%); border-radius: 14px; padding: 20px; margin-bottom: 15px; border: 2px solid #E8E0D8; min-height: 100px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 700; color: #4A4A4A; transition: all 0.3s; position: relative; overflow: hidden; }
+        .question-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #FAEAD3, #EAD0D1); }
+        .tibetan { font-family: "Microsoft Himalaya","Jomolhari","Tibetan Machine Uni","Segoe UI Historic",sans-serif; font-size: 1.8rem; letter-spacing: 1px; color: #4A4A4A; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .option-btn { padding: 14px; background: #FFF; border: 2px solid #E8E0D8; border-radius: 10px; font-size: 0.95rem; cursor: pointer; transition: all 0.25s; text-align: center; min-height: 60px; display: flex; align-items: center; justify-content: center; color: #4A4A4A; font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .option-btn:hover { background: #F9F7F3; transform: translateY(-2px); border-color: #FAEAD3; }
+        .option-btn.correct { background: #E0E5DF; border-color: #C8D0C5; color: #2D4A2D; transform: scale(1.05); }
+        .option-btn.wrong { background: #EAD0D1; border-color: #E0C0C1; color: #5A2D2D; transform: scale(0.95); }
+        .feedback { padding: 14px; border-radius: 10px; margin: 12px 0; font-weight: 600; text-align: center; min-height: 50px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; transition: all 0.3s; border: 2px solid transparent; }
+        .feedback.correct { background: #E0E5DF; color: #2D4A2D; border-color: #C8D0C5; }
+        .feedback.wrong { background: #EAD0D1; color: #5A2D2D; border-color: #E0C0C1; }
+        .feedback.neutral { background: #F0E8E0; color: #5A5A5A; border-color: #E0D8D0; }
+        .stats-container { background: #F9F7F3; border-radius: 12px; padding: 12px; margin-top: 15px; border: 1px solid #F0E8E0; }
+        .stats { display: flex; justify-content: space-around; font-weight: 700; color: #5A5A5A; gap: 8px; }
+        .stats div { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 0.85rem; }
+        .stats span { font-size: 1.1rem; color: #5A5A5A; }
+        .controls { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+        .controls .btn { min-width: 100px; }
+
+        /* Results */
+        .results-container { text-align: center; padding: 15px; }
+        .results-title { font-size: 1.5rem; color: #5A5A5A; margin-bottom: 15px; font-weight: 700; border-bottom: 3px solid #EAD0D1; padding-bottom: 8px; display: inline-block; }
+        .results-table { width: 100%; margin: 15px 0; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 8px rgba(0,0,0,0.08); font-size: 0.85rem; }
+        .results-table th { background: #FAEAD3; color: #4A4A4A; padding: 10px; font-weight: 600; text-align: center; }
+        .results-table td { padding: 8px; border-bottom: 1px solid #F0E8E0; text-align: center; }
+        .results-table .tibetan-cell { font-family: "Microsoft Himalaya","Jomolhari","Tibetan Machine Uni",sans-serif; font-size: 1.1rem; font-weight: bold; }
+        .rate-high { color: #8A9B8A; font-weight: bold; }
+        .rate-medium { color: #C08080; font-weight: bold; }
+        .rate-low { color: #A07070; font-weight: bold; }
+        .summary-stats { display: flex; justify-content: space-around; margin: 18px 0; padding: 15px; background: #F9F7F3; border-radius: 10px; font-weight: 700; flex-wrap: wrap; gap: 10px; }
+        .summary-stats div { text-align: center; flex: 1; min-width: 80px; }
+        .summary-stats .value { font-size: 1.5rem; color: #5A5A5A; margin-top: 3px; }
+        .round-actions { display: flex; justify-content: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+        .round-actions .btn { min-width: 120px; }
+
+        /* Import/Export */
+        .io-section { margin-top: 20px; padding-top: 16px; border-top: 2px dashed #E8E0D8; }
+        .io-section h3 { color: #5A5A5A; font-size: 1rem; margin-bottom: 10px; }
+
+        .footer { text-align: center; padding: 14px; background: #F9F7F3; color: #5A5A5A; font-size: 0.85rem; border-top: 1px solid #F0E8E0; font-weight: 500; }
+
+        /* Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 100; justify-content: center; align-items: center; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: #FFF; border-radius: 14px; padding: 24px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .modal h3 { margin-bottom: 14px; color: #4A4A4A; }
+        .modal input { width: 100%; padding: 10px; border: 2px solid #E8E0D8; border-radius: 8px; font-size: 0.95rem; margin-bottom: 14px; }
+        .modal input:focus { border-color: #FAEAD3; outline: none; }
+        .modal-btns { display: flex; gap: 10px; justify-content: flex-end; }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .content {
-                padding: 15px;
- min-height: auto;
-            }
-
-            .question-box {
-                font-size: 1.4rem;
-                padding: 16px;
-                min-height: 80px;
-                margin-bottom: 10px;
-            }
-
-            .tibetan {
-                font-size: 1.6rem;
-            }
-
-            .options-grid {
-                gap: 8px;
-                margin-bottom: 10px;
-            }
-
-            .option-btn {
-                padding: 12px;
-                font-size: 0.9rem;
-                min-height: 55px;
-            }
-
-            .feedback {
-                padding: 10px;
-                margin: 8px 0;
-                min-height: 40px;
-                font-size: 0.9rem;
-            }
-
-            .stats-container {
-                padding: 10px;
-                margin-top: 10px;
-            }
-
-            .stats {
-                gap: 5px;
-            }
-
-            .stats div {
-                font-size: 0.8rem;
-            }
-
-            .stats span {
-                font-size: 1rem;
-            }
-
-            .controls {
-                margin-top: 8px;
-                gap: 8px;
-            }
-
-            .controls .btn {
-                min-width: 90px;
-                padding: 9px 12px;
-                font-size: 0.85rem;
-            }
-
-            header {
-                padding: 15px;
-                position: sticky;
-                top: 0;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .subtitle {
-                font-size: 0.85rem;
-            }
-
-            .mode-switch {
-                padding: 8px;
-                gap: 6px;
-            }
-
-            .mode-btn {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-
-            .input-area textarea {
-                height: 120px;
-                padding: 12px;
-                font-size: 14px;
-            }
-
-            .btn {
-                padding: 10px 16px;
-                font-size: 0.9rem;
-                min-width: 100px;
-            }
-
-            .results-table {
-                font-size: 0.8rem;
-            }
-
-            .results-table th,
-            .results-table td {
-                padding: 6px;
-            }
-
-            .tibetan-cell {
-                font-size: 1rem;
-            }
-
-            .summary-stats {
-                padding: 12px;
-                gap: 8px;
-            }
-
-            .summary-stats .value {
-                font-size: 1.3rem;
-            }
-
-            .round-actions {
-                gap: 8px;
-            }
-
-            .round-actions .btn {
-                min-width: 100px;
-                padding: 9px 12px;
-            }
-            /*确保底部按钮在屏幕内可见 */
-            .quiz-container {
-                display: flex;
-                flex-direction: column;
-                min-height: 400px;
-            }
-
-            .quiz-container > * {
-                order: 0;
-            }
-
-            .question-box {
-                order: 1;
-            }
-
-            .options-grid {
-                order: 2;
-            }
-
-            .feedback {
-                order: 3;
-            }
-
-            .stats-container {
-                order: 4;
-            }
-
-            .controls {
-                order: 5;
-                position: sticky;
-                bottom: 0;
-                background: #FFFFFF;
-                padding: 10px;
-                margin: 0 -15px;
-                border-top: 2px solid #F0E8E0;
-            }
+            .content { padding: 15px; min-height: auto; }
+            h1 { font-size: 1.5rem; }
+            .question-box { font-size: 1.4rem; padding: 16px; min-height: 80px; }
+            .tibetan { font-size: 1.6rem; }
+            .option-btn { padding: 12px; font-size: 0.9rem; min-height: 55px; }
+            .controls { position: sticky; bottom: 0; background: #FFF; padding: 10px; margin: 0 -15px; border-top: 2px solid #F0E8E0; }
         }
-
         @media (max-width: 480px) {
-            body {
-                padding: 5px;
-            }
-
-            .container {
-                border-radius: 12px;
-            }
-
-            .question-box {
-                font-size: 1.2rem;
-                padding: 14px;
-            }
-
-            .tibetan {
-                font-size: 1.4rem;
-            }
-
-            .option-btn {
-                font-size: 0.85rem;
-                padding: 10px;
-                min-height: 50px;
-            }
-
-            .feedback {
-                font-size: 0.85rem;
-                padding: 8px;
-            }
-
-            .stats div {
-                font-size: 0.75rem;
-            }
-
-            .stats span {
-                font-size: 0.95rem;
-            }
-
-            .controls .btn {
-                font-size: 0.8rem;
-                min-width: 80px;
-                padding: 8px 10px;
-            }
-
-            .btn {
-                padding: 9px 14px;
-                font-size: 0.85rem;
-            }
-
-            .results-title {
-                font-size: 1.3rem;
-            }
-
-            .summary-stats .value {
-                font-size: 1.2rem;
-            }
-        }
-        /* 特别针对小屏幕的优化 */
-        @media (max-height: 700px) and (max-width: 768px) {
-            .content {
-                padding: 12px;
-            }
-
-            .question-box {
-                padding: 12px;
-                min-height: 70px;
- }
-
-            .options-grid {
-                gap: 6px;
-            }
-
-            .option-btn {
-                min-height: 48px;
-                padding: 10px;
-            }
-
-            .feedback {
-                padding: 8px;
-                margin: 6px 0;
-            }
-
-            .stats-container {
-                padding: 8px;
-                margin-top: 8px;
-            }
-
-            .controls {
-                padding: 8px;
-                margin-top: 6px;
-            }
+            body { padding: 5px; }
+            .container { border-radius: 12px; }
+            .question-box { font-size: 1.2rem; padding: 14px; }
+            .tibetan { font-size: 1.4rem; }
+            .option-btn { font-size: 0.85rem; padding: 10px; min-height: 50px; }
         }
     </style>
 </head>
@@ -837,49 +155,74 @@
             <div class="subtitle">藏文 ↔ 汉译 双向学习</div>
         </header>
 
-        <div class="mode-switch">
-            <button class="mode-btn active" data-mode="input">📝 输入单词</button>
-            <button class="mode-btn" data-mode="tibetan"> Tibetan → 汉译</button>
-            <button class="mode-btn" data-mode="han"> 汉译 → Tibetan</button>
+        <div class="nav-tabs">
+            <button class="nav-btn active" data-page="notebooks">📖 单词本</button>
+            <button class="nav-btn" data-page="addwords">📝 添加单词</button>
+            <button class="nav-btn" data-page="study">🎯 开始学习</button>
         </div>
 
         <div class="content">
-            <!-- 输入区域 -->
-            <div id="input-section" class="section active">
-                <div class="input-area">
-                    <h2>📚 添加单词</h2>
-                    <div class="hint">
-                        请输入藏文单词和对应的汉译，每行一个单词。<br>
-                        格式：<strong>藏文词,汉译</strong> （中文或英文逗号）
-                    </div>
-                    <textarea id="word-input" placeholder="例如：&#10;བཀྲ་ཤིས་,吉祥&#10;སེམས་ཅན་,众生&#10;ཤེས་རབ་,智慧&#10;སྙིང་རྗེ་,慈悲"></textarea>
+            <!-- Page 1: Notebooks -->
+            <div id="page-notebooks" class="page active">
+                <div class="create-bar">
+                    <input type="text" id="new-nb-name" placeholder="新单词本名称（留空则按日期命名）">
+                    <button class="btn btn-primary" id="create-nb-btn">➕ 新建</button>
+                </div>
+                <div id="notebook-list" class="notebook-list">
+                    <!-- dynamic -->
+                </div>
+                <div class="io-section">
+                    <h3>📦 数据管理</h3>
                     <div class="btn-group">
-                        <button id="add-words-btn" class="btn btn-primary">➕ 添加单词</button>
-                        <button id="sample-btn" class="btn btn-secondary">🎲 使用示例</button>
+                        <button class="btn btn-info" id="export-all-btn">⬇️ 导出全部</button>
+                        <button class="btn btn-info" id="import-btn">⬆️ 导入数据</button>
                     </div>
-                    <div id="word-count" class="word-count">已添加单词: 0</div>
-                    <div id="start-area" class="start-area">
-                        <button id="start-btn" class="btn btn-success">🚀 开始学习</button>
-                    </div>
+                    <input type="file" id="import-file" accept=".json" style="display:none">
                 </div>
             </div>
 
-            <!-- 学习区域 -->
-            <div id="quiz-section" class="section">
+            <!-- Page 2: Add Words -->
+            <div id="page-addwords" class="page">
+                <div class="input-area">
+                    <h2>📝 添加单词</h2>
+                    <div id="nb-select-for-add" class="current-nb-label">请先选择单词本</div>
+                    <select id="nb-dropdown" style="width:100%; padding:10px; border:2px solid #E8E0D8; border-radius:10px; font-size:0.95rem; background:#FDFCF8; margin-bottom:8px;">
+                        <option value="">-- 选择单词本 --</option>
+                    </select>
+                    <div class="hint">
+                        每行一个，格式：<strong>藏文词,汉译</strong>（中英文逗号均可）
+                    </div>
+                    <textarea id="word-input" placeholder="例如：&#10;བཀྲ་ཤིས་,吉祥&#10;སེམས་ཅན་,众生&#10;ཤེས་རབ་,智慧"></textarea>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" id="add-words-btn">➕ 添加</button>
+                        <button class="btn btn-secondary" id="sample-btn">🎲 示例</button>
+                    </div>
+                    <div id="word-count-bar" class="word-count-bar" style="display:none"></div>
+                    <div id="word-list-preview" class="word-list-preview"></div>
+                </div>
+            </div>
+
+            <!-- Page 3: Study Select -->
+            <div id="page-study" class="page">
+                <div class="study-select">
+                    <h2>🎯 选择要背的单词本</h2>
+                    <div id="nb-checkbox-list" class="nb-checkbox-list">
+                        <!-- dynamic -->
+                    </div>
+                    <div class="mode-select">
+                        <button class="nav-btn active" data-study-mode="tibetan">藏文 → 汉译</button>
+                        <button class="nav-btn" data-study-mode="han">汉译 → 藏文</button>
+                    </div>
+                    <button class="btn btn-success" id="start-study-btn" style="width:100%">🚀 开始学习</button>
+                </div>
+            </div>
+
+            <!-- Page 4: Quiz -->
+            <div id="page-quiz" class="page">
                 <div class="quiz-container">
-                    <div class="question-box" id="question">
-                        准备开始...
-                    </div>
-
-                    <div class="options-grid" id="options">
-                        <!-- 选项按钮将在这里动态生成 -->
-                    </div>
-
-                    <div id="feedback" class="feedback neutral">
-                        请选择正确答案
-                    </div>
-
-                    <!-- 统计信息放在底部 -->
+                    <div class="question-box" id="question">准备开始...</div>
+                    <div class="options-grid" id="options"></div>
+                    <div id="feedback" class="feedback neutral">请选择正确答案</div>
                     <div class="stats-container">
                         <div class="stats">
                             <div>进度 <span id="progress">0</span>/<span id="total">0</span></div>
@@ -887,31 +230,22 @@
                             <div>错误 <span id="wrong-count">0</span></div>
                         </div>
                     </div>
-
-                    <!--按钮也放在底部 -->
                     <div class="controls">
                         <button id="next-btn" class="btn btn-primary" disabled>➡️ 下一题</button>
-                        <button id="reset-btn" class="btn btn-danger">🔄 重置</button>
+                        <button id="back-study-btn" class="btn btn-danger">🔙 返回</button>
                     </div>
                 </div>
             </div>
 
-            <!-- 结果区域 -->
-            <div id="results-section" class="section">
+            <!-- Page 5: Results -->
+            <div id="page-results" class="page">
                 <div class="results-container">
                     <div class="results-title">🎯 本轮学习结果</div>
-
-                    <div id="results-content">
-                        <!-- 结果表格将在这里动态生成 -->
-                    </div>
-
-                    <div class="summary-stats" id="summary-stats">
-                        <!-- 汇总统计将在这里动态生成 -->
-                    </div>
-
+                    <div id="results-content"></div>
+                    <div id="summary-stats" class="summary-stats"></div>
                     <div class="round-actions">
-                        <button id="next-round-btn" class="btn btn-success">🚀 开始下一轮</button>
-                        <button id="back-to-input-btn" class="btn btn-info">📝 返回输入</button>
+                        <button id="next-round-btn" class="btn btn-success">🚀 再来一轮</button>
+                        <button id="back-to-select-btn" class="btn btn-info">🔙 重新选择</button>
                     </div>
                 </div>
             </div>
@@ -922,469 +256,477 @@
         </div>
     </div>
 
+    <!-- Rename Modal -->
+    <div class="modal-overlay" id="rename-modal">
+        <div class="modal">
+            <h3>✏️ 重命名单词本</h3>
+            <input type="text" id="rename-input" placeholder="输入新名称">
+            <div class="modal-btns">
+                <button class="btn btn-info" id="rename-cancel">取消</button>
+                <button class="btn btn-primary" id="rename-confirm">确定</button>
+            </div>
+        </div>
+    </div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // 应用状态
-            const state = {
-                words: [],
-                mode: 'input',
-                currentQuestion: null,
-                stats: {
-                    total: 0,
-                    correct: 0,
-                    wrong: 0
-                },
-                currentRound: 1,
-                roundCompleted: false
-            };
+    document.addEventListener('DOMContentLoaded', () => {
+        // ========== Storage ==========
+        const STORAGE_KEY = 'tibetan_vocab_notebooks';
 
-            // DOM元素
-            const elements = {
-                modeButtons: document.querySelectorAll('.mode-btn'),
-                sections: {
-                    input: document.getElementById('input-section'),
-                    quiz: document.getElementById('quiz-section'),
-                    results: document.getElementById('results-section')
-                },
-                wordInput: document.getElementById('word-input'),
-                addWordsBtn: document.getElementById('add-words-btn'),
-                sampleBtn: document.getElementById('sample-btn'),
-                startArea: document.getElementById('start-area'),
-                startBtn: document.getElementById('start-btn'),
-                wordCount: document.getElementById('word-count'),
-                question: document.getElementById('question'),
-                options: document.getElementById('options'),
-                feedback: document.getElementById('feedback'),
-                nextBtn: document.getElementById('next-btn'),
-                resetBtn: document.getElementById('reset-btn'),
-                progress: document.getElementById('progress'),
-                total: document.getElementById('total'),
-                correctCount: document.getElementById('correct-count'),
-                wrongCount: document.getElementById('wrong-count'),
-                resultsContent: document.getElementById('results-content'),
-                summaryStats: document.getElementById('summary-stats'),
-                nextRoundBtn: document.getElementById('next-round-btn'),
-                backToInputBtn: document.getElementById('back-to-input-btn')
-            };
+        function loadData() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                return raw ? JSON.parse(raw) : [];
+            } catch { return []; }
+        }
 
-            // 模式切换
-            elements.modeButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const mode = btn.getAttribute('data-mode');
-                    if (mode === 'input') {
-                        showSection('input');
-                    } else {
-                        if (state.words.length < 4) {
-                            showFeedback('请至少添加4个单词后再切换学习模式', 'wrong');
-                            return;
-                        }
-                        state.mode = mode;
-                        showSection('quiz');
-                        resetQuiz();
-                        generateQuestion();
-                    }
+        function saveData(notebooks) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(notebooks));
+        }
 
-                    elements.modeButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                });
+        // ========== State ==========
+        let notebooks = loadData();
+        let currentNbId = null;
+        let studyMode = 'tibetan';
+        let studyWords = [];
+        let quizState = { total: 0, correct: 0, wrong: 0, currentQ: null, round: 1, wordStats: [] };
+
+        // ========== DOM ==========
+        const $ = id => document.getElementById(id);
+        const pages = { notebooks: $('page-notebooks'), addwords: $('page-addwords'), study: $('page-study'), quiz: $('page-quiz'), results: $('page-results') };
+        const navBtns = document.querySelectorAll('.nav-tabs .nav-btn');
+
+        // ========== Navigation ==========
+        function showPage(name) {
+            Object.values(pages).forEach(p => p.classList.remove('active'));
+            pages[name].classList.add('active');
+            navBtns.forEach(b => {
+                b.classList.toggle('active', b.dataset.page === name);
             });
+            if (name === 'notebooks') renderNotebooks();
+            if (name === 'addwords') renderAddWordsPage();
+            if (name === 'study') renderStudySelect();
+        }
 
-            // 添加单词
-            elements.addWordsBtn.addEventListener('click', () => {
-                const input = elements.wordInput.value.trim();
-                if (!input) {
-                    showFeedback('请输入单词数据', 'wrong');
-                    return;
-                }
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => showPage(btn.dataset.page));
+        });
 
-                const lines = input.split('\n');
-                let addedCount = 0;
+        // ========== Notebooks Page ==========
+        function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
 
-                lines.forEach(line => {
-                    const parts = line.split(/[,，]/);
-                    if (parts.length === 2) {
-                        const tibetan = parts[0].trim();
-                        const han = parts[1].trim();
+        function todayStr() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        }
 
-                        if (tibetan && han) {
-                            const exists = state.words.some(w =>
-                                w.tibetan === tibetan && w.han === han
-                            );
+        $('create-nb-btn').addEventListener('click', () => {
+            const name = $('new-nb-name').value.trim() || todayStr();
+            notebooks.push({ id: genId(), name, words: [], created: Date.now() });
+            saveData(notebooks);
+            $('new-nb-name').value = '';
+            renderNotebooks();
+        });
 
-                            if (!exists) {
-                                state.words.push({
-                                    tibetan: tibetan,
-                                    han: han,
-                                    correct: 0,
-                                    wrong: 0,
-                                    attempts: 0
+        function renderNotebooks() {
+            const list = $('notebook-list');
+            if (notebooks.length === 0) {
+                list.innerHTML = '<div style="text-align:center;color:#999;padding:30px;">还没有单词本，创建一个吧 📖</div>';
+                return;
+            }
+            list.innerHTML = notebooks.map(nb => `
+                <div class="notebook-card" data-id="${nb.id}">
+                    <div class="notebook-info">
+                        <h3>${esc(nb.name)}</h3>
+                        <span>${nb.words.length} 个单词</span>
+                    </div>
+                    <div class="notebook-actions">
+                        <button class="icon-btn edit" title="重命名" onclick="renameNb('${nb.id}')">✏️</button>
+                        <button class="icon-btn export" title="导出" onclick="exportNb('${nb.id}')">⬇️</button>
+                        <button class="icon-btn delete" title="删除" onclick="deleteNb('${nb.id}')">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+        // Rename
+        let renamingId = null;
+        window.renameNb = function(id) {
+            renamingId = id;
+            const nb = notebooks.find(n => n.id === id);
+            $('rename-input').value = nb ? nb.name : '';
+            $('rename-modal').classList.add('show');
+            $('rename-input').focus();
+        };
+        $('rename-cancel').addEventListener('click', () => $('rename-modal').classList.remove('show'));
+        $('rename-confirm').addEventListener('click', () => {
+            const nb = notebooks.find(n => n.id === renamingId);
+            if (nb) { nb.name = $('rename-input').value.trim() || nb.name; saveData(notebooks); renderNotebooks(); }
+            $('rename-modal').classList.remove('show');
+        });
+        $('rename-input').addEventListener('keydown', e => { if (e.key === 'Enter') $('rename-confirm').click(); });
+
+        // Delete
+        window.deleteNb = function(id) {
+            const nb = notebooks.find(n => n.id === id);
+            if (nb && confirm(`确定删除「${nb.name}」？（${nb.words.length} 个单词将丢失）`)) {
+                notebooks = notebooks.filter(n => n.id !== id);
+                saveData(notebooks);
+                renderNotebooks();
+            }
+        };
+
+        // Export single
+        window.exportNb = function(id) {
+            const nb = notebooks.find(n => n.id === id);
+            if (!nb) return;
+            downloadJSON([nb], `藏文单词本_${nb.name}.json`);
+        };
+
+        // Export all
+        $('export-all-btn').addEventListener('click', () => {
+            if (notebooks.length === 0) { alert('没有数据可导出'); return; }
+            downloadJSON(notebooks, `藏文单词本_全部_${todayStr()}.json`);
+        });
+
+        function downloadJSON(data, filename) {
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        // Import
+        $('import-btn').addEventListener('click', () => $('import-file').click());
+        $('import-file').addEventListener('change', e => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = ev => {
+                try {
+                    const data = JSON.parse(ev.target.result);
+                    if (!Array.isArray(data)) throw new Error();
+                    let count = 0;
+                    data.forEach(nb => {
+                        if (nb.name && Array.isArray(nb.words)) {
+                            nb.id = nb.id || genId();
+                            const exists = notebooks.find(n => n.id === nb.id);
+                            if (exists) {
+                                // merge words
+                                nb.words.forEach(w => {
+                                    if (!exists.words.some(ew => ew.tibetan === w.tibetan && ew.han === w.han)) {
+                                        exists.words.push(w);
+                                        count++;
+                                    }
                                 });
-                                addedCount++;
+                            } else {
+                                notebooks.push(nb);
+                                count += nb.words.length;
                             }
                         }
-                    }
-                });
-
-                if (addedCount > 0) {
-                    showFeedback(`✅ 成功添加 ${addedCount} 个单词`, 'correct');
-                    elements.wordInput.value = '';
-                    updateWordCount();
-
-                    if (state.words.length >= 4) {
-                        elements.startArea.classList.add('show');
-                    }
-                } else {
-                    showFeedback('❌ 未添加新单词，请检查格式', 'wrong');
-                }
-            });
-
-            // 使用示例数据
-            elements.sampleBtn.addEventListener('click', () => {
-                const sampleData = [
-                    "བཀྲ་ཤིས་,吉祥",
-                    "སེམས་ཅན་,众生",
-                   "ཤེས་རབ་,智慧",
-                   "སྙིང་རྗེ་,慈悲",
-"འོད་གསལ་,光明",
-                    "རང་གྲོལ་,自在",
-                    "ཐེག་པ་,乘",
-                   "སྨོན་ལམ་,愿"
-                ].join('\n');
-
-                elements.wordInput.value = sampleData;
-                showFeedback('📄 已加载示例数据，请点击"添加单词"', 'neutral');
-            });
-
-            // 开始学习
-            elements.startBtn.addEventListener('click', () => {
-                if (state.words.length < 4) {
-                    showFeedback('请至少添加4个单词后再开始', 'wrong');
-                    return;
-                }
-
-                state.currentRound = 1;
-                state.roundCompleted = false;
-                const tibetanBtn = document.querySelector('[data-mode="tibetan"]');
-                tibetanBtn.click();
-            });
-
-            // 下一题
-            elements.nextBtn.addEventListener('click', () => {
-                generateQuestion();
-            });
-
-            // 重置
-            elements.resetBtn.addEventListener('click', () => {
-                if (confirm('确定要重置吗？这将清除所有单词和学习进度。')) {
-                    resetAll();
-                }
-            });
-
-            // 下一轮
-            elements.nextRoundBtn.addEventListener('click', () => {
-                state.currentRound++;
-                state.roundCompleted = false;
-                // 重置本轮统计但保留单词
-                state.stats = { total: 0, correct: 0, wrong: 0 };
-                showSection('quiz');
-                resetQuiz();
-                generateQuestion();
-
-                // 切换回对应模式按钮
-                elements.modeButtons.forEach(b => b.classList.remove('active'));
-                if (state.mode === 'tibetan') {
-                    document.querySelector('[data-mode="tibetan"]').classList.add('active');
-                } else {
-                    document.querySelector('[data-mode="han"]').classList.add('active');
-                }
-            });
-
-            // 返回输入
-            elements.backToInputBtn.addEventListener('click', () => {
-                if (confirm('返回输入将重置所有数据，确定吗？')) {
-                    resetAll();
-                }
-            });
-
-            // 辅助函数：显示反馈
-            function showFeedback(message, type) {
-                elements.feedback.textContent = message;
-                elements.feedback.className = 'feedback';
-
-                if (type === 'correct') {
-                    elements.feedback.classList.add('correct');
-                } else if (type === 'wrong') {
-                    elements.feedback.classList.add('wrong');
-                } else {
-                    elements.feedback.classList.add('neutral');
-                }
-
-                // 3秒后自动清除反馈
-                setTimeout(() => {
-                    if (elements.feedback.textContent === message) {
-                        elements.feedback.textContent = '请选择正确答案';
-                        elements.feedback.className = 'feedback neutral';
-                    }
-                }, 3000);
-            }
-
-            // 辅助函数：显示指定部分
-            function showSection(sectionName) {
-                Object.values(elements.sections).forEach(section => {
-                    section.classList.remove('active');
-                });
-                elements.sections[sectionName].classList.add('active');
-            }
-
-            // 辅助函数：更新单词计数
-            function updateWordCount() {
-                elements.wordCount.textContent = `已添加单词: ${state.words.length}`;
-            }
-
-            // 生成问题
-            function generateQuestion() {
-                if (state.words.length < 4) {
-                    showFeedback('请至少添加4个单词', 'wrong');
-                    return;
-                }
-
-                // 检查是否完成一轮（所有单词至少被测试过一次）
-                const allTested = state.words.every(w => w.attempts > 0);
-                if (allTested && state.stats.total >= state.words.length) {
-                    showResults();
-                    return;
-                }
-
-                elements.nextBtn.disabled = true;
-                elements.feedback.textContent = '请选择正确答案';
-                elements.feedback.className = 'feedback neutral';
-                elements.options.innerHTML = '';
-
-                // 随机选择一个正确答案（优先选择尝试次数少的）
-                let correctIndex;
-                const minAttempts = Math.min(...state.words.map(w => w.attempts));
-                const candidates = state.words.filter(w => w.attempts === minAttempts);
-
-                if (candidates.length > 0) {
-                    const randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
-                    correctIndex = state.words.indexOf(randomCandidate);
-                } else {
-                    correctIndex = Math.floor(Math.random() * state.words.length);
-                }
-
-                const correctWord = state.words[correctIndex];
-
-                // 收集错误答案
-                const wrongWords = [];
-                const availableWords = state.words.filter((_, i) => i !== correctIndex);
-
-                for (let i = 0; i < 3; i++) {
-                    if (availableWords.length === 0) break;
-                    const randomIndex = Math.floor(Math.random() * availableWords.length);
-                    wrongWords.push(availableWords.splice(randomIndex, 1)[0]);
-                }
-
-                // 创建选项数组并随机排序
-                const options = [
-                    { text: state.mode === 'tibetan' ? correctWord.han : correctWord.tibetan, correct: true },
-                    ...wrongWords.map(word => ({
-                        text: state.mode === 'tibetan' ? word.han : word.tibetan,
-                        correct: false
-                    }))
-                ];
-
-                for (let i = options.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [options[i], options[j]] = [options[j], options[i]];
-                }
-
-                state.currentQuestion = {
-                    question: state.mode === 'tibetan' ? correctWord.tibetan : correctWord.han,
-                    correctAnswer: state.mode === 'tibetan' ? correctWord.han : correctWord.tibetan,
-                    options: options,
-                    wordIndex: correctIndex
-                };
-
-                elements.question.innerHTML = state.mode === 'tibetan'
-                    ? `<span class="tibetan">${correctWord.tibetan}</span>`
-                    : correctWord.han;
-
-                options.forEach((option, index) => {
-                    const btn = document.createElement('button');
-                    btn.className = 'option-btn';
-                    btn.innerHTML = option.text;
-                    btn.dataset.correct = option.correct;
-                    btn.addEventListener('click', handleOptionClick);
-                    elements.options.appendChild(btn);
-                });
-
-                elements.progress.textContent = state.stats.total;
-                elements.total.textContent = state.words.length;
-            }
-
-            // 处理选项点击
-            function handleOptionClick(e) {
-                const btn = e.target;
-                const isCorrect = btn.dataset.correct === 'true';
-                const wordIndex = state.currentQuestion.wordIndex;
-
-                // 更新单词统计
-                state.words[wordIndex].attempts++;
-                if (isCorrect) {
-                    state.words[wordIndex].correct++;
-                } else {
-                    state.words[wordIndex].wrong++;
-                }
-
-                // 禁用所有选项按钮
-                const allButtons = elements.options.querySelectorAll('.option-btn');
-                allButtons.forEach(button => {
-                    button.disabled = true;
-                    if (button.dataset.correct === 'true') {
-                        button.classList.add('correct');
-                    }
-                });
-
-                // 处理答案
-                if (isCorrect) {
-                    btn.classList.add('correct');
-                    showFeedback(`🎉 回答正确！`, 'correct');
-                    state.stats.correct++;
-                    elements.correctCount.textContent = state.stats.correct;
-
-                    // 正确答案：2秒后自动跳转
-                    elements.nextBtn.disabled = false;
-                    setTimeout(() => {
-                        if (!elements.nextBtn.disabled) {
-                            generateQuestion();
-                        }
-                    }, 2000);
-
-                } else {
-                    btn.classList.add('wrong');
-                    showFeedback(`❌ 回答错误！正确答案: ${state.currentQuestion.correctAnswer}`, 'wrong');
-                    state.stats.wrong++;
-                    elements.wrongCount.textContent = state.stats.wrong;
-
-                    // 错误答案：不自动跳转，需要手动点击下一题
-                    elements.nextBtn.disabled = false;
-                }
-
-                state.stats.total++;
-                elements.progress.textContent = state.stats.total;
-
-                // 检查是否完成一轮
-                const allTested = state.words.every(w => w.attempts > 0);
-                if (allTested && state.stats.total >= state.words.length) {
-                    setTimeout(() => {
-                        showResults();
-                    }, 2000);
-                }
-            }
-
-            // 显示结果
-            function showResults() {
-                state.roundCompleted = true;
-
-                // 生成结果表格
-                let tableHTML = `
-                    <table class="results-table">
-                        <thead>
-                            <tr>
-                                <th>藏文</th>
-                                <th>汉译</th>
-                                <th>正确</th>
-                                <th>错误</th>
-                                <th>正确率</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
-
-                state.words.forEach(word => {
-                    const totalAttempts = word.correct + word.wrong;
-                    const rate = totalAttempts > 0 ? Math.round((word.correct / totalAttempts) * 100) : 0;
-                    let rateClass = 'rate-low';
-                    if (rate >= 80) rateClass = 'rate-high';
-                    else if (rate >= 50) rateClass = 'rate-medium';
-
-                    tableHTML += `
-                        <tr>
-                            <td class="tibetan-cell">${word.tibetan}</td>
-                            <td>${word.han}</td>
-                            <td>${word.correct}</td>
-                            <td>${word.wrong}</td>
-                            <td class="${rateClass}">${rate}%</td>
-                        </tr>
-                    `;
-                });
-
-                tableHTML += '</tbody></table>';
-                elements.resultsContent.innerHTML = tableHTML;
-
-                // 汇总统计
-                const totalCorrect = state.words.reduce((sum, w) => sum + w.correct, 0);
-                const totalWrong = state.words.reduce((sum, w) => sum + w.wrong, 0);
-                const totalAttempts = totalCorrect + totalWrong;
-                const overallRate = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
-
-                elements.summaryStats.innerHTML = `
-                    <div>
-                        <div>本轮正确</div>
-                        <div class="value">${totalCorrect}</div>
-                    </div>
-                    <div>
-                        <div>本轮错误</div>
-                        <div class="value">${totalWrong}</div>
-                    </div>
-                    <div>
-                        <div>正确率</div>
-                        <div class="value">${overallRate}%</div>
-                    </div>
-                    <div>
-                        <div>第${state.currentRound}轮</div>
-                        <div class="value">完成</div>
-                    </div>
-                `;
-
-                showSection('results');
-            }
-
-            // 重置学习
-            function resetQuiz() {
-                state.stats = { total: 0, correct: 0, wrong: 0 };
-                elements.progress.textContent = '0';
-                elements.total.textContent = state.words.length;
-                elements.correctCount.textContent = '0';
-                elements.wrongCount.textContent = '0';
-                elements.question.textContent = '准备开始...';
-                elements.options.innerHTML = '';
-                elements.feedback.textContent = '请选择正确答案';
-                elements.feedback.className = 'feedback neutral';
-                elements.nextBtn.disabled = true;
-            }
-
-            // 重置所有
-            function resetAll() {
-                state.words = [];
-                state.mode = 'input';
-                state.currentRound = 1;
-                state.roundCompleted = false;
-                resetQuiz();
-                elements.wordInput.value = '';
-                elements.startArea.classList.remove('show');
-                updateWordCount();
-                showSection('input');
-
-                elements.modeButtons.forEach(b => b.classList.remove('active'));
-                document.querySelector('[data-mode="input"]').classList.add('active');
-
-                showFeedback('✅ 已重置所有数据', 'correct');
-            }
-
-            // 初始化
-            updateWordCount();
+                    });
+                    saveData(notebooks);
+                    renderNotebooks();
+                    alert(`导入成功！新增 ${count} 个单词`);
+                } catch { alert('文件格式错误，请使用导出的JSON文件'); }
+            };
+            reader.readAsText(file);
+            e.target.value = '';
         });
+
+        // ========== Add Words Page ==========
+        function renderAddWordsPage() {
+            const dd = $('nb-dropdown');
+            dd.innerHTML = '<option value="">-- 选择单词本 --</option>' +
+                notebooks.map(nb => `<option value="${nb.id}" ${nb.id === currentNbId ? 'selected' : ''}>${esc(nb.name)} (${nb.words.length}词)</option>`).join('');
+            updateWordPreview();
+        }
+
+        $('nb-dropdown').addEventListener('change', e => {
+            currentNbId = e.target.value || null;
+            updateWordPreview();
+        });
+
+        function updateWordPreview() {
+            const nb = notebooks.find(n => n.id === currentNbId);
+            const bar = $('word-count-bar');
+            const preview = $('word-list-preview');
+            if (!nb) {
+                bar.style.display = 'none';
+                preview.innerHTML = '';
+                return;
+            }
+            bar.style.display = 'block';
+            bar.textContent = `「${nb.name}」已有 ${nb.words.length} 个单词`;
+            if (nb.words.length === 0) {
+                preview.innerHTML = '<div style="text-align:center;color:#999;padding:15px;">还没有单词</div>';
+                return;
+            }
+            preview.innerHTML = `<table><thead><tr><th>藏文</th><th>汉译</th><th></th></tr></thead><tbody>` +
+                nb.words.map((w, i) => `<tr><td class="tibetan-cell">${esc(w.tibetan)}</td><td>${esc(w.han)}</td><td><button class="word-delete-btn" onclick="deleteWord('${nb.id}',${i})">❌</button></td></tr>`).join('') +
+                `</tbody></table>`;
+        }
+
+        window.deleteWord = function(nbId, idx) {
+            const nb = notebooks.find(n => n.id === nbId);
+            if (nb) { nb.words.splice(idx, 1); saveData(notebooks); updateWordPreview(); }
+        };
+
+        $('add-words-btn').addEventListener('click', () => {
+            if (!currentNbId) { alert('请先选择一个单词本'); return; }
+            const nb = notebooks.find(n => n.id === currentNbId);
+            if (!nb) return;
+            const input = $('word-input').value.trim();
+            if (!input) { alert('请输入单词'); return; }
+            let added = 0;
+            input.split('\n').forEach(line => {
+                const parts = line.split(/[,，]/);
+                if (parts.length === 2) {
+                    const tibetan = parts[0].trim(), han = parts[1].trim();
+                    if (tibetan && han && !nb.words.some(w => w.tibetan === tibetan && w.han === han)) {
+                        nb.words.push({ tibetan, han });
+                        added++;
+                    }
+                }
+            });
+            if (added > 0) {
+                saveData(notebooks);
+                $('word-input').value = '';
+                updateWordPreview();
+                alert(`✅ 成功添加 ${added} 个单词`);
+            } else {
+                alert('未添加新单词，请检查格式或是否重复');
+            }
+        });
+
+        $('sample-btn').addEventListener('click', () => {
+            $('word-input').value = "བཀྲ་ཤིས་,吉祥\nསེམས་ཅན་,众生\nཤེས་རབ་,智慧\nསྙིང་རྗེ་,慈悲\nའོད་གསལ་,光明\nརང་གྲོལ་,自在\nཐེག་པ་,乘\nསྨོན་ལམ་,愿";
+        });
+        // ========== Study Select Page ==========
+        function renderStudySelect() {
+            const list = $('nb-checkbox-list');
+            if (notebooks.length === 0) {
+                list.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">还没有单词本，先去创建吧</div>';
+                return;
+            }
+            list.innerHTML = notebooks.filter(nb => nb.words.length > 0).map(nb => `
+                <div class="nb-checkbox-item" data-id="${nb.id}">
+                    <input type="checkbox" id="cb-${nb.id}" value="${nb.id}">
+                    <label for="cb-${nb.id}">${esc(nb.name)}</label>
+                    <span class="nb-count">${nb.words.length} 词</span>
+                </div>
+            `).join('') || '<div style="text-align:center;color:#999;padding:20px;">所有单词本都是空的，先去添加单词吧</div>';
+
+            // Toggle checked style
+            list.querySelectorAll('.nb-checkbox-item').forEach(item => {
+                const cb = item.querySelector('input[type=checkbox]');
+                cb.addEventListener('change', () => item.classList.toggle('checked', cb.checked));
+                item.addEventListener('click', e => { if (e.target !== cb) { cb.checked = !cb.checked; cb.dispatchEvent(new Event('change')); } });
+            });
+        }
+
+        // Study mode buttons
+        document.querySelectorAll('[data-study-mode]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-study-mode]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                studyMode = btn.dataset.studyMode;
+            });
+        });
+
+        // Start study
+        $('start-study-btn').addEventListener('click', () => {
+            const checked = [...document.querySelectorAll('#nb-checkbox-list input:checked')].map(cb => cb.value);
+            if (checked.length === 0) { alert('请至少选择一个单词本'); return; }
+            studyWords = [];
+            checked.forEach(id => {
+                const nb = notebooks.find(n => n.id === id);
+                if (nb) studyWords.push(...nb.words);
+            });
+            // Deduplicate
+            const seen = new Set();
+            studyWords = studyWords.filter(w => {
+                const key = w.tibetan + '|' + w.han;
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+            if (studyWords.length < 4) { alert('选中的单词本总共不足4个单词，请多选一些'); return; }
+            // Init quiz
+            quizState = { total: 0, correct: 0, wrong: 0, currentQ: null, round: 1, wordStats: studyWords.map(w => ({ ...w, attempts: 0, correct: 0, wrong: 0 })) };
+            showPage('quiz');
+            // Don't let nav highlight
+            navBtns.forEach(b => b.classList.remove('active'));
+            resetQuizUI();
+            generateQuestion();
+        });
+
+        // ========== Quiz ==========
+        function resetQuizUI() {
+            $('progress').textContent = '0';
+            $('total').textContent = studyWords.length;
+            $('correct-count').textContent = '0';
+            $('wrong-count').textContent = '0';
+            $('question').textContent = '准备开始...';
+            $('options').innerHTML = '';
+            setFeedback('请选择正确答案', 'neutral');
+            $('next-btn').disabled = true;
+        }
+
+        function setFeedback(msg, type) {
+            const fb = $('feedback');
+            fb.textContent = msg;
+            fb.className = 'feedback ' + type;
+        }
+
+        function generateQuestion() {
+            const ws = quizState.wordStats;
+            if (ws.length < 4) return;
+
+            // Check if round complete
+            const allTested = ws.every(w => w.attempts > 0);
+            if (allTested && quizState.total >= ws.length) {
+                showResults();
+                return;
+            }
+
+            $('next-btn').disabled = true;
+            setFeedback('请选择正确答案', 'neutral');
+            $('options').innerHTML = '';
+
+            // Pick question (prefer untested)
+            const minAttempts = Math.min(...ws.map(w => w.attempts));
+            const candidates = ws.filter(w => w.attempts === minAttempts);
+            const correctWord = candidates[Math.floor(Math.random() * candidates.length)];
+            const correctIdx = ws.indexOf(correctWord);
+
+            // Wrong options
+            const others = ws.filter((_, i) => i !== correctIdx);
+            const wrongs = [];
+            const pool = [...others];
+            for (let i = 0; i < 3 && pool.length > 0; i++) {
+                const ri = Math.floor(Math.random() * pool.length);
+                wrongs.push(pool.splice(ri, 1)[0]);
+            }
+
+            const options = [
+                { text: studyMode === 'tibetan' ? correctWord.han : correctWord.tibetan, correct: true },
+                ...wrongs.map(w => ({ text: studyMode === 'tibetan' ? w.han : w.tibetan, correct: false }))
+            ];
+            // Shuffle
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+            }
+
+            quizState.currentQ = { correctIdx, correctAnswer: studyMode === 'tibetan' ? correctWord.han : correctWord.tibetan };
+
+            $('question').innerHTML = studyMode === 'tibetan'
+                ? `<span class="tibetan">${esc(correctWord.tibetan)}</span>`
+                : esc(correctWord.han);
+
+            const optContainer = $('options');
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt.text;
+                btn.dataset.correct = opt.correct;
+                btn.addEventListener('click', handleAnswer);
+                optContainer.appendChild(btn);
+            });
+
+            $('progress').textContent = quizState.total;
+            $('total').textContent = ws.length;
+        }
+
+        function handleAnswer(e) {
+            const btn = e.target;
+            const isCorrect = btn.dataset.correct === 'true';
+            const ws = quizState.wordStats;
+            const ci = quizState.currentQ.correctIdx;
+
+            ws[ci].attempts++;
+            if (isCorrect) { ws[ci].correct++; } else { ws[ci].wrong++; }
+
+            const allBtns = $('options').querySelectorAll('.option-btn');
+            allBtns.forEach(b => {
+                b.disabled = true;
+                if (b.dataset.correct === 'true') b.classList.add('correct');
+            });
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                setFeedback('🎉 回答正确！', 'correct');
+                quizState.correct++;
+                $('correct-count').textContent = quizState.correct;
+                $('next-btn').disabled = false;
+                setTimeout(() => { if (!$('next-btn').disabled) generateQuestion(); }, 2000);
+            } else {
+                btn.classList.add('wrong');
+                setFeedback(`❌ 正确答案: ${quizState.currentQ.correctAnswer}`, 'wrong');
+                quizState.wrong++;
+                $('wrong-count').textContent = quizState.wrong;
+                $('next-btn').disabled = false;
+            }
+
+            quizState.total++;
+            $('progress').textContent = quizState.total;
+
+            if (ws.every(w => w.attempts > 0) && quizState.total >= ws.length) {
+                setTimeout(showResults, 2000);
+            }
+        }
+
+        $('next-btn').addEventListener('click', generateQuestion);
+        $('back-study-btn').addEventListener('click', () => showPage('study'));
+
+        // ========== Results ==========
+        function showResults() {
+            navBtns.forEach(b => b.classList.remove('active'));
+            Object.values(pages).forEach(p => p.classList.remove('active'));
+            pages.results.classList.add('active');
+
+            const ws = quizState.wordStats;
+            let html = '<table class="results-table"><thead><tr><th>藏文</th><th>汉译</th><th>正确</th><th>错误</th><th>正确率</th></tr></thead><tbody>';
+            ws.forEach(w => {
+                const tot = w.correct + w.wrong;
+                const rate = tot > 0 ? Math.round(w.correct / tot * 100) : 0;
+                const cls = rate >= 80 ? 'rate-high' : rate >= 50 ? 'rate-medium' : 'rate-low';
+                html += `<tr><td class="tibetan-cell">${esc(w.tibetan)}</td><td>${esc(w.han)}</td><td>${w.correct}</td><td>${w.wrong}</td><td class="${cls}">${rate}%</td></tr>`;
+            });
+            html += '</tbody></table>';
+            $('results-content').innerHTML = html;
+
+            const tc = ws.reduce((s, w) => s + w.correct, 0);
+            const tw = ws.reduce((s, w) => s + w.wrong, 0);
+            const ta = tc + tw;
+            const or = ta > 0 ? Math.round(tc / ta * 100) : 0;
+            $('summary-stats').innerHTML = `
+                <div><div>正确</div><div class="value">${tc}</div></div>
+                <div><div>错误</div><div class="value">${tw}</div></div>
+                <div><div>正确率</div><div class="value">${or}%</div></div>
+                <div><div>第${quizState.round}轮</div><div class="value">完成</div></div>`;
+        }
+
+        $('next-round-btn').addEventListener('click', () => {
+            quizState.round++;
+            quizState.total = 0; quizState.correct = 0; quizState.wrong = 0;
+            quizState.wordStats.forEach(w => { w.attempts = 0; w.correct = 0; w.wrong = 0; });
+            navBtns.forEach(b => b.classList.remove('active'));
+            Object.values(pages).forEach(p => p.classList.remove('active'));
+            pages.quiz.classList.add('active');
+            resetQuizUI();
+            generateQuestion();
+        });
+
+        $('back-to-select-btn').addEventListener('click', () => showPage('study'));
+
+        // ========== Init ==========
+        renderNotebooks();
+    });
     </script>
 </body>
 </html>
